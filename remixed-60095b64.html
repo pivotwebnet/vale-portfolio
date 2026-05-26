@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valeria Cervetti · Community Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --vino: #6B1A2A; --vino-dark: #4A0F1C; --vino-mid: #8C2A3E;
+    --vino-light: #C45570; --vino-faint: #F7ECEE;
+    --blanco: #FDFAF7; --crema: #F2E8E4;
+    --dorado: #C9A96E; --gris: #9B8585;
+    --pivot: #0D2418; --pivot-acc: #6CBF7F;
+    --rm: #E85D20; --rm-dark: #1A1A1A;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--blanco); color:var(--vino-dark); overflow-x:hidden; }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.1rem 4rem; background:rgba(253,250,247,0.93); backdrop-filter:blur(14px); border-bottom:1px solid rgba(107,26,42,0.08); }
+  .nav-logo { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--vino); letter-spacing:.02em; }
+  .nav-links { display:flex; gap:2.2rem; list-style:none; }
+  .nav-links a { text-decoration:none; color:var(--gris); font-size:.78rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; transition:color .2s; }
+  .nav-links a:hover { color:var(--vino); }
+
+  /* HERO */
+  .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
+  .hero-left { background:var(--vino-dark); display:flex; flex-direction:column; justify-content:center; padding:8rem 5rem 5rem; position:relative; }
+  .hero-left::after { content:''; position:absolute; top:0; right:-55px; width:110px; height:100%; background:var(--vino-dark); clip-path:polygon(0 0, 0% 100%, 100% 100%); }
+  .hero-eyebrow { font-size:.72rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--dorado); margin-bottom:1.4rem; animation:fadeUp .8s ease both; }
+  .hero-name { font-family:'Playfair Display',serif; font-size:clamp(3rem,5vw,5.5rem); font-weight:900; line-height:1; color:var(--blanco); animation:fadeUp .8s .15s ease both; }
+  .hero-name em { font-style:italic; color:var(--dorado); display:block; }
+  .hero-role { margin-top:1.4rem; font-size:.95rem; font-weight:300; color:rgba(253,250,247,.55); letter-spacing:.04em; animation:fadeUp .8s .3s ease both; }
+  .hero-div { width:60px; height:2px; background:var(--dorado); margin:1.8rem 0; animation:expandW .8s .45s ease both; }
+  .hero-tagline { font-size:1rem; font-weight:300; color:rgba(253,250,247,.8); line-height:1.65; max-width:320px; animation:fadeUp .8s .5s ease both; }
+  .hero-stats { display:flex; gap:2.5rem; margin-top:2.8rem; animation:fadeUp .8s .65s ease both; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--dorado); line-height:1; }
+  .stat-lbl { font-size:.68rem; color:rgba(253,250,247,.45); letter-spacing:.1em; text-transform:uppercase; margin-top:.3rem; }
+  .hero-right { background:var(--crema); display:flex; flex-direction:column; justify-content:center; padding:8rem 4rem 5rem 7rem; position:relative; }
+  .hero-badge { position:absolute; top:8rem; right:2.5rem; width:105px; height:105px; border-radius:50%; background:var(--vino); display:flex; align-items:center; justify-content:center; text-align:center; animation:spin 18s linear infinite; }
+  .hero-badge span { font-size:.55rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--blanco); line-height:1.7; }
+  .svc-list { list-style:none; width:100%; }
+  .svc-list li { padding:1rem 0; border-bottom:1px solid rgba(107,26,42,.1); display:flex; align-items:center; gap:.9rem; font-size:.92rem; color:var(--vino-dark); animation:fadeUp .6s ease both; }
+  .svc-list li:nth-child(1){animation-delay:.3s} .svc-list li:nth-child(2){animation-delay:.4s}
+  .svc-list li:nth-child(3){animation-delay:.5s} .svc-list li:nth-child(4){animation-delay:.6s}
+  .svc-list li:nth-child(5){animation-delay:.7s} .svc-list li:nth-child(6){animation-delay:.8s}
+  .svc-list li::before { content:'→'; color:var(--vino-light); font-size:.82rem; flex-shrink:0; }
+
+  /* STRIP */
+  .strip { background:var(--vino); padding:3.5rem 0; }
+  .strip-inner { max-width:860px; margin:0 auto; padding:0 2rem; text-align:center; }
+  .strip-quote { font-family:'Playfair Display',serif; font-size:clamp(1.3rem,3vw,2rem); font-style:italic; color:var(--blanco); line-height:1.5; }
+  .strip-quote b { font-style:normal; color:var(--dorado); }
+
+  /* COMMON */
+  .container { max-width:1200px; margin:0 auto; padding:0 2rem; }
+  .sec-tag { font-size:.7rem; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--vino-light); display:block; margin-bottom:.8rem; }
+  .sec-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3.2rem); font-weight:700; color:var(--vino-dark); line-height:1.15; }
+  .sec-title em { font-style:italic; color:var(--vino-mid); }
+  .fade-in { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+
+  /* CLIENT SECTION */
+  .cs { padding:7rem 0; }
+  .cs.alt { background:var(--vino-faint); }
+  .ch { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; margin-bottom:4.5rem; }
+  .ch.rev { direction:rtl; } .ch.rev > * { direction:ltr; }
+  .c-sector { font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gris); margin-bottom:.7rem; }
+  .c-name { font-family:'Playfair Display',serif; font-size:clamp(2.5rem,5vw,4rem); font-weight:900; line-height:1; margin-bottom:.9rem; }
+  .c-name.p { color:var(--pivot); } .c-name.r { color:var(--rm); }
+  .c-desc { font-size:.95rem; color:var(--gris); line-height:1.7; margin-bottom:1.3rem; }
+  .tags { display:flex; flex-wrap:wrap; gap:.45rem; }
+  .tag { padding:.3rem .85rem; border-radius:100px; font-size:.72rem; font-weight:500; letter-spacing:.03em; }
+  .tag.p { background:#E8F5E9; color:var(--pivot); border:1px solid #A5D6A7; }
+  .tag.r { background:#FFF3E0; color:var(--rm); border:1px solid #FFCC80; }
+  .c-link { margin-top:.9rem; font-size:.78rem; color:var(--gris); }
+
+  /* METRICS */
+  .mbox { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(107,26,42,.08); border-radius:16px; overflow:hidden; }
+  .mc { background:var(--blanco); padding:1.8rem; text-align:center; }
+  .mc.alt { background:var(--vino-faint); }
+  .mn { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; line-height:1; }
+  .mn.p { color:var(--pivot); } .mn.r { color:var(--rm); } .mn.v { color:var(--vino); }
+  .ml { font-size:.72rem; color:var(--gris); margin-top:.35rem; line-height:1.3; }
+
+  /* POSTS */
+  .pgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .pc { border-radius:12px; overflow:hidden; aspect-ratio:1/1; position:relative; cursor:pointer; transition:transform .3s,box-shadow .3s; }
+  .pc:hover { transform:translateY(-5px); box-shadow:0 20px 40px rgba(107,26,42,.18); }
+
+  /* Pivot card styles */
+  .p1 { background:#0D2418; display:flex; flex-direction:column; padding:1rem; }
+  .p2 { background:linear-gradient(150deg,#0D2418 0%,#1A3A2A 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:1rem; }
+  .p3 { background:white; display:flex; flex-direction:column; overflow:hidden; }
+  .pv { position:absolute; bottom:.6rem; left:.65rem; font-size:.6rem; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:.25rem; }
+  .pv::before { content:'👁'; font-size:.65rem; }
+  .pp { position:absolute; top:.5rem; right:.5rem; width:20px; height:20px; background:rgba(255,255,255,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.5rem; color:white; }
+  .ptitle { font-weight:800; font-size:.85rem; line-height:1.15; color:white; }
+  .pacc { color:var(--pivot-acc); }
+  .plogo { font-size:.6rem; letter-spacing:.08em; font-weight:600; color:rgba(255,255,255,.45); margin-bottom:.3rem; }
+  .nl { list-style:none; margin-top:.45rem; display:flex; flex-direction:column; gap:.2rem; }
+  .nl li { font-size:.6rem; color:rgba(255,255,255,.7); display:flex; align-items:center; gap:.35rem; }
+  .nb { width:13px; height:13px; border-radius:50%; background:var(--pivot-acc); color:white; font-size:.52rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  /* Rey Mar card styles */
+  .r1 { background:linear-gradient(135deg,#E85D20,#B84010); display:flex; flex-direction:column; justify-content:flex-end; padding:1rem; }
+  .r2 { background:white; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+  .r3 { background:#1A1A1A; display:flex; flex-direction:column; justify-content:flex-end; padding:1rem; }
+  .rtitle { font-weight:900; font-size:1rem; line-height:1.05; color:white; margin-bottom:.25rem; }
+  .rsub { font-size:.62rem; color:rgba(255,255,255,.65); }
+
+  /* VIRAL BANNER */
+  .vbanner { grid-column:1/-1; border-radius:12px; padding:2rem 2.5rem; display:flex; align-items:center; justify-content:space-between; position:relative; overflow:hidden; }
+  .vbanner::before { content:''; position:absolute; top:-50%; right:-5%; width:280px; height:280px; background:radial-gradient(circle,rgba(201,169,110,.18) 0%,transparent 70%); pointer-events:none; }
+  .vlabel { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--dorado); margin-bottom:.35rem; }
+  .vtitle { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:white; }
+  .vnum { font-family:'Playfair Display',serif; font-size:3.2rem; font-weight:900; line-height:1; }
+  .vunit { font-size:.9rem; color:rgba(255,255,255,.4); margin-left:.2rem; }
+
+  /* SKILLS */
+  .skills-sec { background:var(--vino-dark); padding:7rem 0; }
+  .skills-head { text-align:center; margin-bottom:4rem; }
+  .sgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
+  .scard { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:1.8rem; transition:background .3s,transform .3s; }
+  .scard:hover { background:rgba(255,255,255,.09); transform:translateY(-3px); }
+  .sicon { font-size:1.4rem; margin-bottom:1rem; }
+  .sname { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:white; margin-bottom:.5rem; }
+  .sdesc { font-size:.82rem; color:rgba(255,255,255,.47); line-height:1.6; }
+
+  /* CONTACT */
+  .contact-sec { background:var(--crema); padding:7rem 0; text-align:center; }
+  .contact-inner { max-width:580px; margin:0 auto; padding:0 2rem; }
+  .ctitle { font-family:'Playfair Display',serif; font-size:clamp(1.9rem,4vw,3rem); font-weight:700; color:var(--vino-dark); margin-bottom:1.3rem; }
+  .ctitle em { font-style:italic; color:var(--vino-mid); }
+  .csub { font-size:.95rem; color:var(--gris); line-height:1.7; margin-bottom:2.8rem; }
+  .btn { display:inline-block; padding:.95rem 2.4rem; background:var(--vino); color:white; text-decoration:none; border-radius:100px; font-size:.82rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; transition:background .25s,transform .2s; }
+  .btn:hover { background:var(--vino-mid); transform:translateY(-2px); }
+  .cinfo { margin-top:2.5rem; font-size:.82rem; color:var(--gris); display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; }
+  .cinfo a { color:var(--vino-mid); text-decoration:none; }
+
+  footer { background:var(--vino-dark); padding:2rem; text-align:center; font-size:.75rem; color:rgba(253,250,247,.28); letter-spacing:.05em; }
+  footer span { color:var(--dorado); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes expandW { from{width:0;opacity:0} to{width:60px;opacity:1} }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--blanco)} ::-webkit-scrollbar-thumb{background:var(--vino-light);border-radius:3px}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem} .nav-links{display:none}
+    .hero{grid-template-columns:1fr} .hero-left{padding:7rem 2rem 3rem} .hero-left::after{display:none} .hero-right{padding:3rem 2rem}
+    .ch{grid-template-columns:1fr;gap:2rem} .ch.rev{direction:ltr}
+    .pgrid{grid-template-columns:repeat(2,1fr)} .sgrid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:580px){
+    .hero-stats{flex-wrap:wrap;gap:1.5rem}
+    .pgrid{grid-template-columns:1fr 1fr}
+    .sgrid{grid-template-columns:1fr}
+    .vbanner{flex-direction:column;gap:1rem;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">VC · Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#pivot">PIVOT</a></li>
+    <li><a href="#reymar">Rey Mar</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Community Manager · Rafaela, Santa Fe</p>
+    <h1 class="hero-name">Valeria<em>Cervetti</em></h1>
+    <p class="hero-role">Gestión de redes · Contenido estratégico · Crecimiento de marcas</p>
+    <div class="hero-div"></div>
+    <p class="hero-tagline">Creo contenido que conecta marcas con personas reales. Estrategia, estética y resultados medibles.</p>
+    <div class="hero-stats">
+      <div><div class="stat-num">2</div><div class="stat-lbl">Clientes activos</div></div>
+      <div><div class="stat-num">+70k</div><div class="stat-lbl">Views virales</div></div>
+      <div><div class="stat-num">+2k</div><div class="stat-lbl">Seguidores logrados</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-badge"><span>CM<br>Disponible<br>2025</span></div>
+    <ul class="svc-list">
+      <li>Gestión de Instagram y redes sociales</li>
+      <li>Creación y diseño de contenido</li>
+      <li>Copywriting y storytelling de marca</li>
+      <li>Estrategia de crecimiento orgánico</li>
+      <li>Análisis de métricas y reportes</li>
+      <li>Community building y engagement</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <p class="strip-quote">"El contenido que creo no solo <b>se ve bien</b> —<br>también genera <b>resultados medibles</b>."</p>
+  </div>
+</div>
+
+<!-- ══════════ PIVOT ══════════ -->
+<section class="cs" id="pivot">
+  <div class="container">
+
+    <div class="ch fade-in">
+      <!-- INFO -->
+      <div>
+        <p class="c-sector">Agencia de Desarrolladores · Rafaela, Santa Fe</p>
+        <h2 class="c-name p">PIVOT</h2>
+        <p class="c-desc">Agencia especializada en webs, e-commerce y sistemas a medida. Construimos su presencia en Instagram desde cero con contenido educativo y de conversión que los posiciona como referentes en transformación digital.</p>
+        <div class="tags">
+          <span class="tag p">Webs</span><span class="tag p">E-commerce</span><span class="tag p">Sistemas</span><span class="tag p">Transformación digital</span>
+        </div>
+        <p class="c-link">📍 pivotweb.com.ar · @pivot.web</p>
+      </div>
+      <!-- METRICS -->
+      <div class="mbox">
+        <div class="mc"><div class="mn p">87,8k</div><div class="ml">Visualizaciones<br>últimos 30 días</div></div>
+        <div class="mc"><div class="mn p">354</div><div class="ml">Seguidores<br>orgánicos</div></div>
+        <div class="mc alt"><div class="mn p">10</div><div class="ml">Publicaciones<br>realizadas</div></div>
+        <div class="mc alt"><div class="mn v">70,5k</div><div class="ml">Views en<br>publicación viral</div></div>
+      </div>
+    </div>
+
+    <!-- POSTS PIVOT -->
+    <div class="pgrid fade-in">
+
+      <!-- 1. Más simple de lo que pensás -->
+      <div class="pc p3">
+        <div style="background:#0D2418;flex:1.2;display:flex;flex-direction:column;padding:1rem;justify-content:center;">
+          <div class="plogo">▶ PIVOT</div>
+          <div style="font-size:1.1rem;font-weight:900;color:white;line-height:1;">MÁS<br><span style="color:var(--pivot-acc);font-style:italic;">SIMPLE</span><br>DE LO QUE<br><em style="color:var(--pivot-acc);">pensás</em></div>
+        </div>
+        <div style="padding:.7rem;display:flex;flex-direction:column;gap:.25rem;background:white;">
+          <div style="background:#0D2418;border-radius:4px;padding:.3rem .5rem;font-size:.58rem;color:white;display:flex;gap:.35rem;align-items:center;"><span>💻</span><span><b>NOSOTROS</b> nos ocupamos de todo</span></div>
+          <div style="background:#0D2418;border-radius:4px;padding:.3rem .5rem;font-size:.58rem;color:white;display:flex;gap:.35rem;align-items:center;"><span>💬</span><span><b>VOS SOLO</b> contanos tu idea</span></div>
+          <div style="background:#0D2418;border-radius:4px;padding:.3rem .5rem;font-size:.58rem;color:white;display:flex;gap:.35rem;align-items:center;"><span>🚀</span><span><b>LO HACEMOS</b> rápido y profesional</span></div>
+        </div>
+      </div>
+
+      <!-- 2. Estás perdiendo clientes -->
+      <div class="pc p2">
+        <div style="position:absolute;top:.8rem;left:.8rem;font-size:1.1rem;">⚠️</div>
+        <div style="font-size:.95rem;font-weight:900;line-height:1.05;color:white;margin-bottom:.35rem;">
+          ESTÁS<br><span class="pacc">PERDIENDO</span><br>CLIENTES
+        </div>
+        <div style="font-size:.62rem;color:var(--pivot-acc);font-style:italic;margin-bottom:.4rem;">(sin saberlo)</div>
+        <ul class="nl">
+          <li><span class="nb">1</span>Alguien buscó tu servicio hoy</li>
+          <li><span class="nb">2</span>No encontró tu web</li>
+          <li><span class="nb">3</span>Encontró a tu competencia</li>
+          <li><span class="nb">4</span>Y terminó comprando con ellos</li>
+        </ul>
+        <div style="margin-top:.5rem;background:rgba(108,191,127,.12);border:1px solid rgba(108,191,127,.3);border-radius:4px;padding:.3rem .5rem;font-size:.6rem;color:var(--pivot-acc);font-weight:700;">No es suerte. Es visibilidad.</div>
+      </div>
+
+      <!-- 3. 4 Segundos -->
+      <div class="pc p2" style="position:relative;">
+        <div style="position:absolute;top:.8rem;left:.8rem;font-size:.9rem;">⏱️</div>
+        <div class="plogo">▶ PIVOT</div>
+        <div style="font-size:.82rem;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:.2rem;">TENÉS</div>
+        <div style="font-size:1.8rem;font-weight:900;color:var(--pivot-acc);line-height:1;">4 SEG.</div>
+        <div style="font-size:.62rem;color:rgba(255,255,255,.65);margin:.4rem 0;line-height:1.4;">Si tu web no es clara,<br>no transmite <span style="color:var(--pivot-acc);">confianza</span><br>o no <span style="color:var(--pivot-acc);">guía</span> al usuario...</div>
+        <div style="background:rgba(0,0,0,.35);border-radius:4px;padding:.3rem .5rem;">
+          <span style="font-size:.65rem;font-weight:800;color:white;">✕ LO PERDÉS. Así de simple.</span>
+        </div>
+        <div class="pv">1,843</div>
+      </div>
+
+      <!-- 4. Tu web es tu vendedor 24/7 -->
+      <div class="pc p1">
+        <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.7rem;">
+          <div style="width:13px;height:13px;background:var(--pivot-acc);clip-path:polygon(20% 0,80% 0,100% 50%,80% 100%,20% 100%,0 50%);"></div>
+          <span style="font-size:.6rem;font-weight:600;color:rgba(255,255,255,.5);">PIVOT</span>
+        </div>
+        <div style="font-size:.9rem;font-weight:700;color:white;line-height:1.2;">Tu web es<br>tu vendedor</div>
+        <div style="font-size:2rem;font-weight:900;color:var(--pivot-acc);line-height:1;">24/7.</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.55);margin-top:.4rem;">¿Está haciendo bien su trabajo?</div>
+        <div class="pv">831</div>
+      </div>
+
+      <!-- 5. Mientras dormís -->
+      <div class="pc p1">
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:.65rem;">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <div style="width:30px;height:30px;background:#C8E6C9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">🌙</div>
+            <div style="font-size:.65rem;color:white;line-height:1.35;">Mientras dormís,<br><span style="color:var(--pivot-acc);font-weight:600;">tu web sigue activa.</span></div>
+          </div>
+          <div style="height:1px;background:rgba(255,255,255,.08);"></div>
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <div style="width:30px;height:30px;background:#C8E6C9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">💼</div>
+            <div style="font-size:.65rem;color:white;line-height:1.35;">En reunión,<br><span style="color:var(--pivot-acc);font-weight:600;">tu web sigue activa.</span></div>
+          </div>
+          <div style="height:1px;background:rgba(255,255,255,.08);"></div>
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <div style="width:30px;height:30px;background:#C8E6C9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">👥</div>
+            <div style="font-size:.62rem;color:rgba(255,255,255,.65);line-height:1.35;">¿Convierte visitas en clientes<br>o los <span style="color:var(--pivot-acc);">espanta?</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Tu web no es solo diseño -->
+      <div class="pc p2">
+        <div class="plogo">▶ PIVOT</div>
+        <div style="font-size:.88rem;font-weight:900;color:white;line-height:1.1;margin-bottom:.45rem;">Tu web no es<br>solo diseño.<br><span style="color:var(--pivot-acc);">Es una herramienta<br>que <b>convierte.</b></span></div>
+        <div style="display:flex;flex-direction:column;gap:.28rem;">
+          <div style="font-size:.6rem;color:rgba(255,255,255,.7);display:flex;gap:.4rem;align-items:center;"><span style="color:var(--pivot-acc);">🛡</span>Genera confianza desde el primer clic.</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.7);display:flex;gap:.4rem;align-items:center;"><span style="color:var(--pivot-acc);">⚡</span>Responde rápido, cada segundo cuenta.</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.7);display:flex;gap:.4rem;align-items:center;"><span style="color:var(--pivot-acc);">🎯</span>Guía al usuario exactamente donde necesitás.</div>
+        </div>
+        <div style="margin-top:.6rem;font-size:.62rem;font-weight:700;color:var(--pivot-acc);">ESO ES LO QUE CONSTRUIMOS EN PIVOT.</div>
+      </div>
+
+      <!-- VIRAL PIVOT -->
+      <div class="vbanner" style="background:var(--vino-dark);">
+        <div>
+          <div class="vlabel">🏆 Publicación más exitosa</div>
+          <div class="vtitle">"3 tipos de widgets que transforman tu web"</div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.3rem;">Reel · @pivot.web · Rafaela, Santa Fe</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="vnum" style="color:var(--dorado);">70,5k<span class="vunit">views</span></div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.2rem;">Alcance orgánico</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ REY MAR ══════════ -->
+<section class="cs alt" id="reymar">
+  <div class="container">
+
+    <div class="ch rev fade-in">
+      <div>
+        <p class="c-sector">Transporte de Carga · Rafaela → Buenos Aires</p>
+        <h2 class="c-name r">Rey Mar</h2>
+        <p class="c-desc">Empresa de transporte de carga con camiones y acoplados de 28 pallet. Desarrollamos su identidad digital en Instagram comunicando servicios, horarios y cobertura geográfica con claridad y profesionalismo.</p>
+        <div class="tags">
+          <span class="tag r">Cargas</span><span class="tag r">Rafaela · Bs.As.</span><span class="tag r">+30 localidades</span><span class="tag r">CABA y AMBA</span>
+        </div>
+        <p class="c-link">📍 Rafaela, Santa Fe · @reymartransporte</p>
+      </div>
+      <div class="mbox">
+        <div class="mc"><div class="mn r">31,5k</div><div class="ml">Visualizaciones<br>últimos 30 días</div></div>
+        <div class="mc"><div class="mn r">2.118</div><div class="ml">Seguidores<br>orgánicos</div></div>
+        <div class="mc alt"><div class="mn r">16</div><div class="ml">Publicaciones<br>realizadas</div></div>
+        <div class="mc alt"><div class="mn v">13,8k</div><div class="ml">Views en<br>reel destacado</div></div>
+      </div>
+    </div>
+
+    <!-- POSTS REY MAR -->
+    <div class="pgrid fade-in">
+
+      <!-- 1. Depósitos -->
+      <div class="pc r1">
+        <div style="position:absolute;top:.8rem;left:.8rem;">
+          <div style="font-size:.62rem;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.05em;">REY MAR</div>
+          <div style="font-size:.5rem;color:rgba(255,255,255,.5);">Transporte de carga</div>
+        </div>
+        <div class="rtitle">NUESTROS<br>DEPÓSITOS</div>
+        <div class="rsub">Rafaela (y zona) – Buenos Aires</div>
+        <div class="pv">303</div>
+      </div>
+
+      <!-- 2. Camiones y acoplados -->
+      <div class="pc r2" style="position:relative;">
+        <div style="position:absolute;top:0;right:0;width:42%;height:100%;background:linear-gradient(135deg,#E85D20,#B84010);clip-path:polygon(25% 0,100% 0,100% 100%,0% 100%);z-index:0;"></div>
+        <div style="position:relative;z-index:1;padding:1rem;flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:.62rem;font-weight:700;color:var(--rm);margin-bottom:.5rem;">▶▶ REY MAR</div>
+          <div style="font-size:.9rem;font-weight:900;color:#1A1A1A;line-height:1.0;">CAMIONES<br>Y<br>ACOPLADOS</div>
+          <div style="margin-top:.5rem;display:inline-block;background:var(--rm);color:white;font-size:.6rem;font-weight:900;padding:.2rem .5rem;border-radius:3px;">28 PALLET</div>
+        </div>
+        <div class="pv" style="color:rgba(0,0,0,.35);">31</div>
+      </div>
+
+      <!-- 3. CABA y AMBA -->
+      <div class="pc r2" style="position:relative;">
+        <div style="background:var(--rm);padding:.5rem .8rem;">
+          <div style="font-size:.6rem;font-weight:700;color:white;">REY MAR · Transporte de carga</div>
+        </div>
+        <div style="padding:.7rem;flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:1.1rem;font-weight:900;color:#1A1A1A;line-height:1.0;">CABA <span style="color:var(--rm);">Y</span> AMBA</div>
+          <div style="font-size:.58rem;color:#777;margin:.25rem 0;">Llegamos a cada punto, conectamos negocios.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.2rem;margin-top:.4rem;">
+            <div style="font-size:.55rem;color:#333;padding:.2rem .3rem;background:#f5f5f5;border-radius:3px;text-align:center;">📍 San Vicente</div>
+            <div style="font-size:.55rem;color:#333;padding:.2rem .3rem;background:#f5f5f5;border-radius:3px;text-align:center;">📍 San Martín</div>
+            <div style="font-size:.55rem;color:#333;padding:.2rem .3rem;background:#f5f5f5;border-radius:3px;text-align:center;">📍 Cañada Rosquín</div>
+            <div style="font-size:.55rem;color:#333;padding:.2rem .3rem;background:#f5f5f5;border-radius:3px;text-align:center;">📍 San Genaro</div>
+          </div>
+          <div style="margin-top:.5rem;display:flex;justify-content:space-around;padding:.3rem 0;border-top:1px solid #eee;">
+            <div style="font-size:.5rem;color:#777;text-align:center;">🚛<br>Cargas seguras</div>
+            <div style="font-size:.5rem;color:#777;text-align:center;">📦<br>Sin intermediarios</div>
+            <div style="font-size:.5rem;color:#777;text-align:center;">📍<br>Seguimiento</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Horarios Rafaela / Bs As -->
+      <div class="pc r3" style="position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:40%;height:100%;background:rgba(232,93,32,.12);"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="font-size:.58rem;font-weight:700;color:var(--rm);margin-bottom:.45rem;letter-spacing:.05em;">REY MAR · TRANSPORTE DE CARGA</div>
+          <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;"><span style="font-size:.85rem;">📍</span><div style="font-size:.85rem;font-weight:900;color:var(--rm);">RAFAELA</div></div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.75);padding-bottom:.3rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:.3rem;">🚛 <b style="color:white;">CARGAS</b> Lu · Ma · Mi · Ju</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.75);margin-bottom:.5rem;">📦 <b style="color:white;">ENTREGAS</b> Mi · Ju · Vi · Lu</div>
+          <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;"><span style="font-size:.85rem;">📍</span><div style="font-size:.85rem;font-weight:900;color:var(--rm);">BS AS</div></div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.75);">🚛 <b style="color:white;">ENTREGAS Y CARGAS</b> Ma · Mi · Ju · Vi</div>
+          <div style="margin-top:.6rem;background:var(--rm);border-radius:4px;padding:.3rem .5rem;font-size:.6rem;color:white;font-weight:700;text-align:center;">ASEGURÁ TU ENTREGA · 3492 417861</div>
+        </div>
+        <div class="pv" style="bottom:.4rem;">599</div>
+      </div>
+
+      <!-- 5. Depósitos info -->
+      <div class="pc r2" style="padding:.8rem;position:relative;">
+        <div style="background:var(--rm);border-radius:4px;padding:.3rem .5rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.3rem;">
+          <span style="font-size:.7rem;">📍</span><span style="font-size:.6rem;font-weight:700;color:white;">NUESTROS DEPÓSITOS</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.3rem;font-size:.58rem;color:#444;flex:1;justify-content:center;">
+          <div style="border-bottom:1px dashed #eee;padding-bottom:.22rem;"><b>Casa Central Rafaela</b><br><span style="color:#888;">Hna. Fortunata 535 · L a V 8-17hs</span></div>
+          <div style="border-bottom:1px dashed #eee;padding-bottom:.22rem;"><b>Villa Soldati</b><br><span style="color:#888;">San Pedrito 3434 · L a V 8-16hs</span></div>
+          <div style="border-bottom:1px dashed #eee;padding-bottom:.22rem;"><b>Flores</b><br><span style="color:#888;">Morón 3699 y más sedes</span></div>
+          <div><b style="color:var(--rm);">Puntos de Paso:</b><br><span style="color:#888;">San Vicente · San Genaro · Cañada Rosquín</span></div>
+        </div>
+        <div style="margin-top:.4rem;background:#FFF3E0;border-radius:4px;padding:.25rem;font-size:.58rem;color:var(--rm);font-weight:700;text-align:center;">¿QUÉ PODÉS DESPACHAR? →</div>
+        <div class="pv" style="color:rgba(0,0,0,.3);">252</div>
+      </div>
+
+      <!-- 6. Equipo viral -->
+      <div class="pc r3" style="position:relative;">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem;">
+          <div style="font-size:2.2rem;">🏭</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.45);text-align:center;line-height:1.4;">El equipo de<br>Rey Mar en acción</div>
+        </div>
+        <div style="background:rgba(232,93,32,.18);padding:.6rem .8rem;border-top:1px solid rgba(255,255,255,.05);">
+          <div style="font-size:.72rem;font-weight:700;color:var(--rm);">7.735 visualizaciones</div>
+          <div style="font-size:.58rem;color:rgba(255,255,255,.35);">Reel · Equipo y operaciones</div>
+        </div>
+        <div class="pp">▶</div>
+      </div>
+
+      <!-- VIRAL REY MAR -->
+      <div class="vbanner" style="background:linear-gradient(135deg,#1A0800,#3A1200);">
+        <div>
+          <div class="vlabel" style="color:#FFB74D;">🏆 Reel más visto</div>
+          <div class="vtitle">Presentación institucional de Rey Mar</div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.3rem;">Reel · @reymartransporte · Rafaela, Santa Fe</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="vnum" style="color:#FFB74D;">13,8k<span class="vunit">views</span></div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.2rem;">Alcance orgánico</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ══════════ -->
+<section class="skills-sec" id="skills">
+  <div class="container">
+    <div class="skills-head fade-in">
+      <span class="sec-tag" style="color:var(--dorado);">Lo que ofrezco</span>
+      <h2 class="sec-title" style="color:white;">Mis <em style="color:var(--dorado);">habilidades</em></h2>
+    </div>
+    <div class="sgrid">
+      <div class="scard fade-in"><div class="sicon">📱</div><div class="sname">Gestión de Redes</div><div class="sdesc">Administro perfiles en Instagram con consistencia, planificación y enfoque en crecimiento orgánico sostenido.</div></div>
+      <div class="scard fade-in"><div class="sicon">✍️</div><div class="sname">Copywriting</div><div class="sdesc">Redacción estratégica de captions, CTAs y mensajes que convierten seguidores en clientes reales.</div></div>
+      <div class="scard fade-in"><div class="sicon">🎨</div><div class="sname">Diseño de Contenido</div><div class="sdesc">Creación de piezas visuales alineadas a la identidad de cada marca y sus objetivos de negocio.</div></div>
+      <div class="scard fade-in"><div class="sicon">📊</div><div class="sname">Análisis de Métricas</div><div class="sdesc">Lectura e interpretación de datos para optimizar la estrategia y maximizar el alcance orgánico.</div></div>
+      <div class="scard fade-in"><div class="sicon">🎬</div><div class="sname">Reels & Video</div><div class="sdesc">Producción de contenido en video que genera engagement, viralidad y nuevos seguidores.</div></div>
+      <div class="scard fade-in"><div class="sicon">🗓️</div><div class="sname">Planificación Editorial</div><div class="sdesc">Calendarios de contenido estratégicos, coherentes con cada etapa del negocio del cliente.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section class="contact-sec" id="contacto">
+  <div class="contact-inner fade-in">
+    <h2 class="ctitle">¿Trabajamos <em>juntos?</em></h2>
+    <p class="csub">Estoy disponible para nuevos proyectos. Si tu marca necesita presencia real en redes con estrategia y resultados, hablemos.</p>
+    <a href="https://wa.me/5493492673389" target="_blank" class="btn">Escribime por WhatsApp</a>
+    <div class="cinfo">
+      <span>📍 Rafaela, Santa Fe</span>
+      <a href="https://instagram.com/vale.cervetti" target="_blank">📸 @vale.cervetti</a>
+      <a href="https://wa.me/5493492673389" target="_blank">💬 3492-673389</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Valeria Cervetti</span> · Community Manager · Rafaela, Santa Fe</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*90); obs.unobserve(e.target); }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-110) cur=s.id; });
+    links.forEach(l=>{ l.style.color = l.getAttribute('href')==='#'+cur ? 'var(--vino)' : ''; });
+  });
+</script>
+</body>
+</html>

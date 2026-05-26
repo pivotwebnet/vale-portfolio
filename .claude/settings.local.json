@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\lauta\\\\Desktop\\\\PORTFOLIO VALE\\\\docx_extracted\" -Recurse | ForEach-Object { $_.FullName })",
+      "WebFetch(domain:claude.ai)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\lauta\\\\Desktop\\\\PORTFOLIO VALE\" | Where-Object { $_.Name -ne 'node_modules' -and $_.Name -ne 'dist' } | ForEach-Object { Write-Host $_.Name })",
+      "Bash(npx vite *)"
+    ]
+  }
+}
