@@ -73,8 +73,81 @@ const IMG = {
   },
 }
 
+// ─── ICONOS SVG ──────────────────────────────────────────────────────────────
+const IcMapPin = ({size=14,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+)
+const IcTrophy = ({size=15,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-2"/><rect x="6" y="18" width="12" height="4"/><path d="M6 9a6 6 0 0 0 12 0"/>
+  </svg>
+)
+const IcInstagram = ({size=15,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+)
+const IcMail = ({size=14,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+  </svg>
+)
+const IcWhatsApp = ({size=16,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+  </svg>
+)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const REELS = [
+  {
+    src: '/reels/reel1.mp4',
+    client: 'Rey Mar',
+    tag: 'Transporte de Carga · Rafaela → Bs.As.',
+    accentVar: 'var(--rm)',
+    bgColor: '#1A0800',
+    borderColor: 'rgba(232,93,32,.35)',
+    glowColor: 'rgba(232,93,32,.18)',
+  },
+  {
+    src: '/reels/reel2.mp4',
+    client: 'PIVOT',
+    tag: 'Agencia de Desarrolladores · Rafaela',
+    accentVar: 'var(--pivot-acc)',
+    bgColor: '#061510',
+    borderColor: 'rgba(108,191,127,.3)',
+    glowColor: 'rgba(108,191,127,.15)',
+  },
+  {
+    src: '/reels/reel3.mp4',
+    client: 'Decoud Colchones',
+    tag: 'Fabricadora de Colchones y Sommiers · Rafaela',
+    accentVar: '#7EB8D4',
+    bgColor: '#0A1820',
+    borderColor: 'rgba(126,184,212,.28)',
+    glowColor: 'rgba(126,184,212,.12)',
+  },
+]
+
 export default function App() {
   const [lightbox, setLightbox] = useState(null)
+  const videoRefs = useRef([])
+  const [reelsPlaying, setReelsPlaying] = useState(() => REELS.map(() => false))
+
+  const toggleReel = (i) => {
+    const video = videoRefs.current[i]
+    if (!video) return
+    if (video.paused) {
+      videoRefs.current.forEach((v, j) => { if (v && j !== i) v.pause() })
+      setReelsPlaying(REELS.map((_, j) => j === i))
+      video.play()
+    } else {
+      video.pause()
+      setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))
+    }
+  }
 
   useEffect(() => {
     const obs = new IntersectionObserver(entries => {
@@ -136,11 +209,15 @@ export default function App() {
     <>
       {/* NAV */}
       <nav>
-        <div className="nav-logo">VC · Portfolio</div>
+        <div className="nav-logo">
+          <img src="/logo.png" alt="VC" className="nav-logo-img" />
+          <span>Portfolio</span>
+        </div>
         <ul className="nav-links">
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#pivot">PIVOT</a></li>
           <li><a href="#reymar">Rey Mar</a></li>
+          <li><a href="#reels">Reels</a></li>
           <li><a href="#certificaciones">Certificaciones</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#contacto">Contacto</a></li>
@@ -151,7 +228,10 @@ export default function App() {
       <section className="hero" id="inicio">
         <div className="hero-left">
           <p className="hero-eyebrow">Community Manager · Rafaela, Santa Fe</p>
-          <h1 className="hero-name">Valeria<em>Cervetti</em></h1>
+          <div className="hero-name-row">
+            <h1 className="hero-name">Valeria<em>Cervetti</em></h1>
+            <img src="/logo.png" alt="VC" className="hero-logo" />
+          </div>
           <p className="hero-role">Gestión de redes · Contenido estratégico · Crecimiento de marcas</p>
           <div className="hero-div"></div>
           <p className="hero-tagline">Creo contenido que conecta marcas con personas reales. Estrategia, estética y resultados medibles.</p>
@@ -236,7 +316,7 @@ export default function App() {
                 <span className="tag p">Sistemas</span>
                 <span className="tag p">Transformación digital</span>
               </div>
-              <p className="c-link">📍 pivotweb.com.ar · @pivot.web</p>
+              <p className="c-link"><IcMapPin /> pivotweb.com.ar · @pivot.web</p>
             </div>
             <div className="mbox">
               <div className="mc"><div className="mn p"><Counter target={87.8} suffix="k" decimals={1} /></div><div className="ml">Visualizaciones<br/>últimos 30 días</div></div>
@@ -371,7 +451,7 @@ export default function App() {
             {/* VIRAL PIVOT */}
             <a href="https://www.instagram.com/reel/DXo_5FxAJ80/" target="_blank" rel="noreferrer" className="vbanner" style={{background:'var(--vino-dark)', textDecoration:'none'}}>
               <div>
-                <div className="vlabel">🏆 Publicación más exitosa</div>
+                <div className="vlabel"><IcTrophy /> Publicación más exitosa</div>
                 <div className="vtitle">"3 tipos de webs que transforman tu negocio"</div>
                 <div style={{fontSize:'.78rem',color:'rgba(255,255,255,.4)',marginTop:'.3rem'}}>Reel · @pivot.web · Rafaela, Santa Fe</div>
               </div>
@@ -401,7 +481,7 @@ export default function App() {
                 <span className="tag r">+30 localidades</span>
                 <span className="tag r">CABA y AMBA</span>
               </div>
-              <p className="c-link">📍 Rafaela, Santa Fe · @reymartransporte</p>
+              <p className="c-link"><IcMapPin /> Rafaela, Santa Fe · @reymartransporte</p>
             </div>
             <div className="mbox">
               <div className="mc"><div className="mn r"><Counter target={31.5} suffix="k" decimals={1} /></div><div className="ml">Visualizaciones<br/>últimos 30 días</div></div>
@@ -534,13 +614,13 @@ export default function App() {
                     </div>
                   </>
               }
-              <div className="pp">▶</div>
+              <div className="pp"><svg width="8" height="8" viewBox="0 0 10 10" fill="white"><polygon points="2,1 9,5 2,9"/></svg></div>
             </div>
 
             {/* VIRAL REY MAR */}
             <a href="https://www.instagram.com/reel/DXuHY_dgBTu/" target="_blank" rel="noreferrer" className="vbanner" style={{background:'linear-gradient(135deg,#1A0800,#3A1200)', textDecoration:'none'}}>
               <div>
-                <div className="vlabel" style={{color:'#FFB74D'}}>🏆 Reel más visto</div>
+                <div className="vlabel" style={{color:'#FFB74D'}}><IcTrophy style={{color:'#FFB74D'}} /> Reel más visto</div>
                 <div className="vtitle">¿Tenes una distribuidora y tus pedidos no llegan al interior?</div>
                 <div style={{fontSize:'.78rem',color:'rgba(255,255,255,.4)',marginTop:'.3rem'}}>Reel · @reymartransporte · Rafaela, Santa Fe</div>
               </div>
@@ -550,6 +630,54 @@ export default function App() {
               </div>
             </a>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ══ REELS ══ */}
+      <section className="reels-sec" id="reels">
+        <div className="container">
+          <div className="reels-head fade-in">
+            <span className="sec-tag" style={{color:'var(--dorado)'}}>Contenido en Video</span>
+            <h2 className="sec-title" style={{color:'white'}}>Mis <em style={{color:'var(--dorado)'}}>Reels</em></h2>
+          </div>
+          <div className="reels-grid fade-in">
+            {REELS.map((r, i) => (
+              <div
+                key={i}
+                className="reel-card"
+                style={{'--rc-accent': r.accentVar, '--rc-bg': r.bgColor, '--rc-border': r.borderColor, '--rc-glow': r.glowColor}}
+              >
+                <div className="reel-card-header">
+                  <div className="reel-card-bar" />
+                  <div className="reel-card-meta">
+                    <span className="reel-card-client">{r.client}</span>
+                    <span className="reel-card-tag">{r.tag}</span>
+                  </div>
+                </div>
+                <div
+                  className="reel-video-wrapper"
+                  onClick={() => toggleReel(i)}
+                >
+                  <video
+                    ref={el => { videoRefs.current[i] = el }}
+                    src={r.src}
+                    playsInline
+                    loop
+                    className="reel-video"
+                    onEnded={() => setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))}
+                  />
+                  <div className={`reel-play-overlay${reelsPlaying[i] ? ' is-playing' : ''}`}>
+                    <div className="reel-play-btn">
+                      {reelsPlaying[i]
+                        ? <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+                        : <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -640,13 +768,25 @@ export default function App() {
       {/* ══ CONTACT ══ */}
       <section className="contact-sec" id="contacto">
         <div className="contact-inner fade-in">
-          <h2 className="ctitle">¿Trabajamos <em>juntos?</em></h2>
-          <p className="csub">Estoy disponible para nuevos proyectos. Si tu marca necesita presencia real en redes con estrategia y resultados, hablemos.</p>
-          <a href="https://wa.me/5493492673389" target="_blank" rel="noreferrer" className="btn">Escribime por WhatsApp</a>
+          <span className="sec-tag" style={{color:'var(--vino-light)'}}>Nuevos proyectos · 2026</span>
+          <h2 className="ctitle">¿Tu marca merece más <em>atención?</em></h2>
+          <div className="contact-divider" />
+          <p className="csub">Creo contenido que conecta — estrategia clara, estética cuidada y resultados que se miden. Si tu marca necesita una presencia que convierta, hablemos antes de que se llene la agenda.</p>
+          <div className="cavail">
+            <span className="cavail-dot" />
+            Tomando nuevos clientes este mes
+          </div>
+          <div className="cbtns">
+            <a href="https://wa.me/5493492673389" target="_blank" rel="noreferrer" className="btn">
+              <IcWhatsApp /> Escribime por WhatsApp
+            </a>
+            <a href="https://instagram.com/vale.cervetti" target="_blank" rel="noreferrer" className="btn-secondary">
+              <IcInstagram /> @vale.cervetti
+            </a>
+          </div>
           <div className="cinfo">
-            <span>📍 Rafaela, Santa Fe</span>
-            <a href="https://instagram.com/vale.cervetti" target="_blank" rel="noreferrer">📸 @vale.cervetti</a>
-            <a href="mailto:vcervetti@outlook.es">📧 vcervetti@outlook.es</a>
+            <span><IcMapPin size={13} /> Rafaela, Santa Fe</span>
+            <a href="mailto:vcervetti@outlook.es"><IcMail size={13} /> vcervetti@outlook.es</a>
           </div>
         </div>
       </section>
@@ -659,6 +799,11 @@ export default function App() {
           </a>
         </div>
       </footer>
+
+      {/* WHATSAPP FLOTANTE */}
+      <a href="https://wa.me/5493492673389" target="_blank" rel="noreferrer" className="wa-float" aria-label="WhatsApp">
+        <IcWhatsApp size={28} />
+      </a>
 
       {/* LIGHTBOX */}
       {lightbox && (
