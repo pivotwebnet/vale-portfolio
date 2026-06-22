@@ -240,7 +240,7 @@ export default function App() {
       {/* NAV */}
       <nav>
         <div className="nav-logo">
-          <img src="/logo.png" alt="VC" className="nav-logo-img" />
+          <img src="/logo2.jpg" alt="VC" className="nav-logo-img" />
           <span>Portfolio</span>
         </div>
         <ul className="nav-links">
@@ -264,7 +264,7 @@ export default function App() {
           </div>
           <p className="hero-role">Gestión de redes · Contenido estratégico · Crecimiento de marcas</p>
           <div className="hero-div"></div>
-          <p className="hero-tagline">Creo contenido que conecta marcas con personas reales. Estrategia, estética y resultados medibles.</p>
+          <p className="hero-tagline">Detrás de cada publicación hay una estrategia. Creo contenido que fortaleece marcas, construye comunidades y genera resultados.</p>
           <div className="hero-stats">
             <div><div className="stat-num"><Counter target={2} /></div><div className="stat-lbl">Clientes activos</div></div>
             <div><div className="stat-num"><Counter target={70} prefix="+" suffix="k" /></div><div className="stat-lbl">Views virales</div></div>
@@ -807,7 +807,7 @@ export default function App() {
           <span className="sec-tag" style={{color:'var(--vino-light)'}}>Nuevos proyectos · 2026</span>
           <h2 className="ctitle">¿Tu marca merece más <em>atención?</em></h2>
           <div className="contact-divider" />
-          <p className="csub">Creo contenido que conecta — estrategia clara, estética cuidada y resultados que se miden. Si tu marca necesita una presencia que convierta, hablemos antes de que se llene la agenda.</p>
+          <p className="csub">Detrás de cada publicación hay una estrategia.Creo contenido que fortalece marcas,construye y genera resultados.</p>
           <div className="cavail">
             <span className="cavail-dot" />
             Tomando nuevos clientes este mes
