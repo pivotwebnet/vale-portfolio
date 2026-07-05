@@ -131,52 +131,89 @@ const IcBarChart = ({size=18,style={}}) => (
 )
 // ─────────────────────────────────────────────────────────────────────────────
 
+// dos tonos de la paleta de la página (bordó y cremita) alternados por card
+const REEL_PALETTE = [
+  { accentVar: 'var(--vino-light)', bgColor: '#3D0C16', borderColor: 'rgba(196,85,112,.35)', glowColor: 'rgba(196,85,112,.16)' },
+  { accentVar: 'var(--dorado)', bgColor: '#241407', borderColor: 'rgba(201,169,110,.35)', glowColor: 'rgba(201,169,110,.16)' },
+]
+
 const REELS = [
   {
     src: '/reels/reel1.mp4',
     client: 'Rey Mar',
     tag: 'Transporte de Carga · Rafaela → Bs.As.',
-    accentVar: 'var(--rm)',
-    bgColor: '#1A0800',
-    borderColor: 'rgba(232,93,32,.35)',
-    glowColor: 'rgba(232,93,32,.18)',
   },
   {
     src: '/reels/reel2.mp4',
     client: 'PIVOT',
     tag: 'Agencia de Desarrolladores · Rafaela',
-    accentVar: 'var(--pivot-acc)',
-    bgColor: '#061510',
-    borderColor: 'rgba(108,191,127,.3)',
-    glowColor: 'rgba(108,191,127,.15)',
   },
   {
     src: '/reels/reel3.mp4',
     client: 'Decoud Colchones',
     tag: 'Fabricadora de Colchones y Sommiers · Rafaela',
-    accentVar: '#7EB8D4',
-    bgColor: '#0A1820',
-    borderColor: 'rgba(126,184,212,.28)',
-    glowColor: 'rgba(126,184,212,.12)',
   },
-]
+  {
+    src: '/reels/reel4.mp4',
+    client: 'PIVOT',
+    tag: 'Agencia de Desarrolladores · Rafaela',
+  },
+  {
+    src: '/reels/reel5.mp4',
+    client: 'Pampa y Oro',
+    tag: 'Mates y accesorios · Rafaela',
+  },
+  {
+    src: '/reels/reel6.mp4',
+    client: 'Reymar',
+    tag: 'Transporte de Carga · Rafaela → Bs.As.',
+  },
+].map((r, i) => ({ ...r, ...REEL_PALETTE[i % REEL_PALETTE.length] }))
+// duplicated once so the carousel can loop seamlessly from right to left
+const REELS_LOOP = [...REELS, ...REELS]
 
 export default function App() {
   const [lightbox, setLightbox] = useState(null)
   const videoRefs = useRef([])
-  const [reelsPlaying, setReelsPlaying] = useState(() => REELS.map(() => false))
+  const [reelsPlaying, setReelsPlaying] = useState(() => REELS_LOOP.map(() => false))
 
   const toggleReel = (i) => {
     const video = videoRefs.current[i]
     if (!video) return
     if (video.paused) {
       videoRefs.current.forEach((v, j) => { if (v && j !== i) v.pause() })
-      setReelsPlaying(REELS.map((_, j) => j === i))
+      setReelsPlaying(REELS_LOOP.map((_, j) => j === i))
       video.play()
     } else {
       video.pause()
       setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))
     }
+  }
+
+  const reelsTrackRef = useRef(null)
+  const reelsPausedRef = useRef(false)
+  const reelsResumeTimeout = useRef(null)
+
+  useEffect(() => {
+    const track = reelsTrackRef.current
+    if (!track) return
+    let raf
+    const step = () => {
+      if (!reelsPausedRef.current) {
+        track.scrollLeft += 0.6
+        const halfWidth = track.scrollWidth / 2
+        if (track.scrollLeft >= halfWidth) track.scrollLeft -= halfWidth
+      }
+      raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
+  const pauseReelsAutoScroll = () => {
+    reelsPausedRef.current = true
+    clearTimeout(reelsResumeTimeout.current)
+    reelsResumeTimeout.current = setTimeout(() => { reelsPausedRef.current = false }, 3000)
   }
 
   useEffect(() => {
@@ -677,43 +714,52 @@ export default function App() {
             <span className="sec-tag" style={{color:'var(--dorado)'}}>Contenido en Video</span>
             <h2 className="sec-title" style={{color:'white'}}>Mis <em style={{color:'var(--dorado)'}}>Reels</em></h2>
           </div>
-          <div className="reels-grid fade-in">
-            {REELS.map((r, i) => (
-              <div
-                key={i}
-                className="reel-card"
-                style={{'--rc-accent': r.accentVar, '--rc-bg': r.bgColor, '--rc-border': r.borderColor, '--rc-glow': r.glowColor}}
-              >
-                <div className="reel-card-header">
-                  <div className="reel-card-bar" />
-                  <div className="reel-card-meta">
-                    <span className="reel-card-client">{r.client}</span>
-                    <span className="reel-card-tag">{r.tag}</span>
-                  </div>
-                </div>
+          <div className="reels-carousel-wrap fade-in">
+            <div
+              className="reels-track"
+              ref={reelsTrackRef}
+              onMouseEnter={() => { reelsPausedRef.current = true }}
+              onMouseLeave={() => { clearTimeout(reelsResumeTimeout.current); reelsPausedRef.current = false }}
+              onTouchStart={() => { reelsPausedRef.current = true }}
+              onTouchEnd={pauseReelsAutoScroll}
+            >
+              {REELS_LOOP.map((r, i) => (
                 <div
-                  className="reel-video-wrapper"
-                  onClick={() => toggleReel(i)}
+                  key={i}
+                  className="reel-card"
+                  style={{'--rc-accent': r.accentVar, '--rc-bg': r.bgColor, '--rc-border': r.borderColor, '--rc-glow': r.glowColor}}
                 >
-                  <video
-                    ref={el => { videoRefs.current[i] = el }}
-                    src={r.src}
-                    playsInline
-                    loop
-                    className="reel-video"
-                    onEnded={() => setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))}
-                  />
-                  <div className={`reel-play-overlay${reelsPlaying[i] ? ' is-playing' : ''}`}>
-                    <div className="reel-play-btn">
-                      {reelsPlaying[i]
-                        ? <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
-                        : <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
-                      }
+                  <div className="reel-card-header">
+                    <div className="reel-card-bar" />
+                    <div className="reel-card-meta">
+                      <span className="reel-card-client">{r.client}</span>
+                      <span className="reel-card-tag">{r.tag}</span>
+                    </div>
+                  </div>
+                  <div
+                    className="reel-video-wrapper"
+                    onClick={() => toggleReel(i)}
+                  >
+                    <video
+                      ref={el => { videoRefs.current[i] = el }}
+                      src={r.src}
+                      playsInline
+                      loop
+                      className="reel-video"
+                      onEnded={() => setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))}
+                    />
+                    <div className={`reel-play-overlay${reelsPlaying[i] ? ' is-playing' : ''}`}>
+                      <div className="reel-play-btn">
+                        {reelsPlaying[i]
+                          ? <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+                          : <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+                        }
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
