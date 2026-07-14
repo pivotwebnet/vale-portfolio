@@ -64,8 +64,45 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-i
 /* REELS */
 .reels-sec { padding:7rem 0; background:var(--vino-dark); }
 .reels-head { text-align:center; margin-bottom:4rem; }
-.reels-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; justify-items:center; }
-.reel-card { background:var(--rc-bg); border:1px solid var(--rc-border); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; width:100%; max-width:340px; box-shadow:0 0 60px var(--rc-glow),0 20px 50px rgba(0,0,0,.4); transition:transform .3s,box-shadow .3s; }
+.reels-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+.reels-carousel-container {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding: 3.5rem 0.5rem;
+  margin: -2rem 0;
+  scrollbar-width: none; /* Firefox */
+}
+.reels-carousel-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+.reels-grid {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.reels-grid:hover {
+  animation-play-state: paused;
+}
+.reels-grid.has-video-playing {
+  animation-play-state: paused;
+}
+.reel-card {
+  background:var(--rc-bg);
+  border:1px solid var(--rc-border);
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  width:320px;
+  flex-shrink:0;
+  margin-right: 2rem;
+  box-shadow:0 0 60px var(--rc-glow),0 20px 50px rgba(0,0,0,.4);
+  transition:transform .3s,box-shadow .3s;
+}
 .reel-card:hover { transform:translateY(-6px); box-shadow:0 0 80px var(--rc-glow),0 30px 60px rgba(0,0,0,.5); }
 .reel-card-header { padding:1.2rem 1.4rem 1rem; }
 .reel-card-bar { width:36px; height:3px; background:var(--rc-accent); border-radius:2px; margin-bottom:.9rem; }
@@ -79,6 +116,17 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-i
 .reel-play-overlay.is-playing:hover { opacity:1; }
 .reel-play-btn { width:64px; height:64px; border-radius:50%; background:rgba(0,0,0,.48); border:2px solid rgba(255,255,255,.28); display:flex; align-items:center; justify-content:center; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); transition:transform .2s,background .2s,border-color .2s; }
 .reel-video-wrapper:hover .reel-play-btn { transform:scale(1.1); background:rgba(0,0,0,.65); border-color:var(--rc-accent); }
+.reel-mute-btn { position: absolute; bottom: 15px; right: 15px; width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.25); display: flex; align-items: center; justify-content: center; color: white; z-index: 10; cursor: pointer; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: transform 0.2s, background 0.2s, border-color 0.2s; padding: 0; outline: none; }
+.reel-mute-btn:hover { transform: scale(1.1); background: rgba(0, 0, 0, 0.85); border-color: var(--rc-accent); }
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
 
 /* CERTIFICACIONES */
 .cert-sec { padding:7rem 0; background: white; }
@@ -233,8 +281,7 @@ footer span { color:var(--dorado); }
   .pgrid{grid-template-columns:repeat(2,1fr)}
   .sgrid{grid-template-columns:1fr 1fr}
   .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
-  .reels-grid { grid-template-columns:repeat(2,1fr); gap:1.8rem; }
-  .reel-card:last-child:nth-child(odd) { grid-column:1/-1; max-width:340px; }
+  /* El grid ahora es un carrusel flex, no requiere columnas de cuadrícula */
   .footer-inner { flex-direction:column; gap:1.5rem; text-align:center; padding:0 2rem; }
 }
 @media(max-width:580px){
@@ -259,8 +306,8 @@ footer span { color:var(--dorado); }
   .vnum { font-size: 2.5rem; }
   .ctitle { font-size: 2.2rem; }
   .container { padding: 0 1.5rem; }
-  .reels-grid { grid-template-columns:1fr; }
-  .reel-card { max-width:100%; }
+  .reel-card { width: 285px; margin-right: 1.2rem; }
+  .reels-grid { padding: 0; }
   .mbox { gap: 1px; }
   .mc { padding: 1.2rem 1rem; }
   .mn { font-size: 1.6rem; }

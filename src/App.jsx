@@ -129,6 +129,18 @@ const IcBarChart = ({size=18,style={}}) => (
     <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
   </svg>
 )
+const IcVolume = ({size=18,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+  </svg>
+)
+const IcVolumeX = ({size=18,style={}}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:'inline-block',verticalAlign:'middle',flexShrink:0,...style}}>
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/>
+    <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const REELS = [
@@ -159,24 +171,88 @@ const REELS = [
     borderColor: 'rgba(126,184,212,.28)',
     glowColor: 'rgba(126,184,212,.12)',
   },
+  {
+    src: '/reels/reel4.mp4',
+    client: 'Pampa y Oro',
+    tag: 'Venta de Mates y Accesorios · Rafaela',
+    accentVar: '#FFE082',
+    bgColor: '#1C180A',
+    borderColor: 'rgba(255,224,130,.35)',
+    glowColor: 'rgba(255,224,130,.18)',
+  },
+  {
+    src: '/reels/reel5.mp4',
+    client: 'Rey Mar',
+    tag: 'Transporte de Carga · Rafaela → Bs.As.',
+    accentVar: 'var(--rm)',
+    bgColor: '#1A0800',
+    borderColor: 'rgba(232,93,32,.35)',
+    glowColor: 'rgba(232,93,32,.18)',
+  },
+  {
+    src: '/reels/reel6.mp4',
+    client: 'PIVOT',
+    tag: 'Agencia de Desarrolladores · Rafaela',
+    accentVar: 'var(--pivot-acc)',
+    bgColor: '#061510',
+    borderColor: 'rgba(108,191,127,.3)',
+    glowColor: 'rgba(108,191,127,.15)',
+  },
+  {
+    src: '/reels/reel7.mp4',
+    client: 'PIVOT',
+    tag: 'Agencia de Desarrolladores · Rafaela',
+    accentVar: 'var(--pivot-acc)',
+    bgColor: '#061510',
+    borderColor: 'rgba(108,191,127,.3)',
+    glowColor: 'rgba(108,191,127,.15)',
+  },
 ]
+
+const DOUBLE_REELS = [...REELS, ...REELS]
 
 export default function App() {
   const [lightbox, setLightbox] = useState(null)
   const videoRefs = useRef([])
-  const [reelsPlaying, setReelsPlaying] = useState(() => REELS.map(() => false))
+  const [reelsPlaying, setReelsPlaying] = useState(() => DOUBLE_REELS.map(() => false))
+  const [isMuted, setIsMuted] = useState(true)
 
   const toggleReel = (i) => {
     const video = videoRefs.current[i]
     if (!video) return
     if (video.paused) {
-      videoRefs.current.forEach((v, j) => { if (v && j !== i) v.pause() })
-      setReelsPlaying(REELS.map((_, j) => j === i))
+      // Intentamos reproducir inmediatamente para mantener el contexto del gesto del usuario
       video.play()
+        .then(() => {
+          videoRefs.current.forEach((v, j) => { if (v && j !== i) v.pause() })
+          setReelsPlaying(DOUBLE_REELS.map((_, j) => j === i))
+        })
+        .catch(err => {
+          console.warn("Reproducción con sonido bloqueada. Reintentando silenciado:", err)
+          video.muted = true
+          setIsMuted(true)
+          video.play()
+            .then(() => {
+              videoRefs.current.forEach((v, j) => { if (v && j !== i) v.pause() })
+              setReelsPlaying(DOUBLE_REELS.map((_, j) => j === i))
+            })
+            .catch(err2 => {
+              console.error("Fallo la reproducción silenciada:", err2)
+            })
+        })
     } else {
       video.pause()
       setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))
     }
+  }
+
+  const toggleMute = (e) => {
+    e.stopPropagation()
+    const nextMuted = !isMuted
+    setIsMuted(nextMuted)
+    videoRefs.current.forEach(v => {
+      if (v) v.muted = nextMuted
+    })
   }
 
   useEffect(() => {
@@ -677,43 +753,58 @@ export default function App() {
             <span className="sec-tag" style={{color:'var(--dorado)'}}>Contenido en Video</span>
             <h2 className="sec-title" style={{color:'white'}}>Mis <em style={{color:'var(--dorado)'}}>Reels</em></h2>
           </div>
-          <div className="reels-grid fade-in">
-            {REELS.map((r, i) => (
-              <div
-                key={i}
-                className="reel-card"
-                style={{'--rc-accent': r.accentVar, '--rc-bg': r.bgColor, '--rc-border': r.borderColor, '--rc-glow': r.glowColor}}
-              >
-                <div className="reel-card-header">
-                  <div className="reel-card-bar" />
-                  <div className="reel-card-meta">
-                    <span className="reel-card-client">{r.client}</span>
-                    <span className="reel-card-tag">{r.tag}</span>
-                  </div>
-                </div>
-                <div
-                  className="reel-video-wrapper"
-                  onClick={() => toggleReel(i)}
-                >
-                  <video
-                    ref={el => { videoRefs.current[i] = el }}
-                    src={r.src}
-                    playsInline
-                    loop
-                    className="reel-video"
-                    onEnded={() => setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))}
-                  />
-                  <div className={`reel-play-overlay${reelsPlaying[i] ? ' is-playing' : ''}`}>
-                    <div className="reel-play-btn">
-                      {reelsPlaying[i]
-                        ? <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
-                        : <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
-                      }
+          
+          <div className="reels-carousel-wrapper fade-in">
+            <div className="reels-carousel-container">
+              <div className={`reels-grid${reelsPlaying.some(v => v) ? ' has-video-playing' : ''}`}>
+                {DOUBLE_REELS.map((r, i) => (
+                  <div
+                    key={i}
+                    className="reel-card"
+                    style={{'--rc-accent': r.accentVar, '--rc-bg': r.bgColor, '--rc-border': r.borderColor, '--rc-glow': r.glowColor}}
+                  >
+                    <div className="reel-card-header">
+                      <div className="reel-card-bar" />
+                      <div className="reel-card-meta">
+                        <span className="reel-card-client">{r.client}</span>
+                        <span className="reel-card-tag">{r.tag}</span>
+                      </div>
+                    </div>
+                    <div
+                      className="reel-video-wrapper"
+                      onClick={() => toggleReel(i)}
+                    >
+                      <video
+                        ref={el => { videoRefs.current[i] = el }}
+                        src={r.src}
+                        playsInline
+                        loop
+                        muted={isMuted}
+                        preload="metadata"
+                        className="reel-video"
+                        onEnded={() => setReelsPlaying(prev => prev.map((v, j) => j === i ? false : v))}
+                      />
+                      <div className={`reel-play-overlay${reelsPlaying[i] ? ' is-playing' : ''}`}>
+                        <div className="reel-play-btn">
+                          {reelsPlaying[i]
+                            ? <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+                            : <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+                          }
+                        </div>
+                      </div>
+                      <button
+                        className="reel-mute-btn"
+                        onClick={toggleMute}
+                        aria-label={isMuted ? "Activar sonido" : "Silenciar"}
+                        title={isMuted ? "Activar sonido" : "Silenciar"}
+                      >
+                        {isMuted ? <IcVolumeX size={18} /> : <IcVolume size={18} />}
+                      </button>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
